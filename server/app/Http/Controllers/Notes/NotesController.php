@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Notes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Notes;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class NotesController extends Controller
 {

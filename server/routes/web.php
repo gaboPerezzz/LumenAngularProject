@@ -32,6 +32,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
 $router->post('signup', 'AuthController@signUp');
 $router->post('login', 'AuthController@login');
 
-$router->options('{any:.*}', function () {
-    return response('', 200);
-});
+// $router->options('{any:.*}', function () {
+//     return response('', 200);
+// });

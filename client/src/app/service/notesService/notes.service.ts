@@ -13,7 +13,11 @@ export class NotesService {
     return this.http.get(this.notesUrl);
   }
 
-  getNoteById(id: number) {
-    return this.http.get(`${this.notesUrl}/${id}`);
+  addNote(note: any) {
+    return this.http.post(this.notesUrl, note);
+  }
+
+  editNote(id: number, note: any) {
+    return this.http.put(`${this.notesUrl}/${id}`, note);
   }
 }

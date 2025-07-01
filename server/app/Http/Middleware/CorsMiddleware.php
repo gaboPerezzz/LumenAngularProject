@@ -14,19 +14,25 @@ class CorsMiddleware
      * @return mixed
      */
    public function handle($request, Closure $next)
-{
-    if ($request->getMethod() === "OPTIONS") {
-        return response('', 200)
-            ->header('Access-Control-Allow-Origin', 'http://localhost:4200')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+ {
+        $headers = [
+            'Access-Control-Allow-Origin' => 'http://localhost:4200',
+            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+        ];
+
+        if ($request->getMethod() === 'OPTIONS') {
+            return response()->json('OK', 200, $headers);
+        }
+
+ 
+        $response = $next($request);
+
+        foreach ($headers as $key => $value) {
+            $response->headers->set($key, $value);
+        }
+
+        return $response;
     }
-
-    $response = $next($request);
-
-    return $response
-        ->header('Access-Control-Allow-Origin', 'http://localhost:4200')
-        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
-}
+

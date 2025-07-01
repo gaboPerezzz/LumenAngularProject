@@ -1,0 +1,13 @@
+<div class="flex h-screen">
+  <div class="bg-zinc-50 w-1/12 sticky border-r-[1px] border-zinc-400">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="bg-zinc-50 w-full">
+    <app-add-modal *ngIf="isModalOpen && modalType === 'add'"></app-add-modal>
+    <app-edit-modal
+      *ngIf="isModalOpen && modalType === 'edit'"
+      [data]="modalData"
+    ></app-edit-modal>
+    <router-outlet></router-outlet>
+  </div>
+</div>

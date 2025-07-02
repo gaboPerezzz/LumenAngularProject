@@ -1,3 +1,11 @@
 <div class="p-10 h-screen overflow-auto">
-  <app-notes></app-notes>x
+  <h1 class="text-5xl font-light uppercase mb-6">
+    {{ userName }} Thought Space
+  </h1>
+  <div *ngIf="notes.length === 0" class="text-center text-zinc-500 opacity-60">
+    <p class="text-3xl mt-80">Whats On Your Mind</p>
+    <p class="text-lg">Click the + button to create your first note.</p>
+  </div>
+
+  <app-notes *ngIf="notes.length > 0" [notes]="notes"></app-notes>
 </div>

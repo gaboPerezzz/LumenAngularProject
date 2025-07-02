@@ -42,13 +42,29 @@ class NotesController extends Controller
     public function store(Request $request)
     {
 
-        $user = JWTAuth::parseToken()->authenticate();
-
+        $user = auth()->user();
+        error_log($request);
         $notes = new Notes();
         $notes->title = $request->title;
         $notes->description = $request->description;
+        $notes->color = $request->color; 
         $notes->user_id = $user->id; // Assuming you want to associate the note with the authenticated user
         $notes->save();
+        if (!$notes) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 500,
+                'message' => 'Failed to create note'
+            ], 500);
+        }
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 401,
+                'message' => 'Unauthorized: Invalid or missing token.',
+            ], 401);
+        }
+        
         return response()->json([   
             'status' => 'success',
             'status_code' => 201,
@@ -57,16 +73,26 @@ class NotesController extends Controller
     }
 
     
-    // ------------------------------ GET ALL BY ID ---------------------------------
+    // ------------------------------ GET ALL BY USER_ID ---------------------------------
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getUserNotes()
     {
-         $notes = Notes::find($id);
+    $user = auth()->user();
+
+    if (!$user) {
+        return response()->json([
+            'status' => 'error',
+            'status_code' => 401,
+            'message' => 'Unauthorized: Invalid or missing token.',
+        ], 401);
+    }
+
+    $notes = Notes::where('user_id', $user->id)->get();
 
     return response()->json([
         'status' => 'success',
@@ -85,7 +111,25 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = auth()->user();
         $notes = Notes::find($id);
+
+        if (!$notes) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 404,
+                'message' => 'Note not found'
+            ], 404);
+        }
+
+        if($notes->user_id !== $user->id) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 403,
+                'message' => 'Unauthorized to update this note'
+            ], 403);
+        }
+
         $notes->title = $request->title;
         $notes->description = $request->description;
         $notes->save();
@@ -105,7 +149,24 @@ class NotesController extends Controller
      */
     public function destroy($id)
     {
+        {
+        $user = auth()->user();
         $notes = Notes::find($id);
+             if (!$notes) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 404,
+                'message' => 'Note not found'
+            ], 404);
+        }
+
+        if($notes->user_id !== $user->id) {
+            return response()->json([
+                'status' => 'error',
+                'status_code' => 403,
+                'message' => 'Unauthorized to delete this note'
+            ], 403);
+        }
            $notes->delete();
            return response()->json([   
             'status' => 'success',
@@ -114,3 +175,4 @@ class NotesController extends Controller
         ], 201);
     }
 }
+};

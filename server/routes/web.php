@@ -17,9 +17,9 @@
 //     return $router->app->version();
 // });
 
-$router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
-    $router->get('notes', 'Notes\NotesController@index');
-    $router->get('notes/{id}', 'Notes\NotesController@show');
+$router->group(['prefix' => 'api', 'middleware' =>  'auth:api'], function () use ($router) {
+    // $router->get('notes', 'Notes\NotesController@index');
+    $router->get('notes', 'Notes\NotesController@getUserNotes');
     $router->post('notes', 'Notes\NotesController@store');
     $router->put('notes/{id}', 'Notes\NotesController@update');
     $router->delete('notes/{id}', 'Notes\NotesController@destroy');
@@ -34,4 +34,4 @@ $router->post('login', 'AuthController@login');
 
 // $router->options('{any:.*}', function () {
 //     return response('', 200);
-// });
+// });  

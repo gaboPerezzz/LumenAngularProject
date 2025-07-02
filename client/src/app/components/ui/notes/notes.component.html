@@ -1,14 +1,18 @@
-<div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 p-10">
+<div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 md:p-10">
   <div
     *ngFor="let note of notes"
-    class="bg-white shadow-lg rounded-2xl p-5 pt-7 aspect-square w-full"
+    class="shadow-lg rounded-xl p-5 pt-7 aspect-square w-full hover:scale-105 active:scale-100 transition-all relative cursor-pointer"
+    [style.backgroundColor]="note.color"
+    (click)="openModal(note)"
   >
-    <p class="text-sm text-zinc-400">
+    <p class="text-sm text-black">
       {{ note.created_at | date : "shortDate" }}
     </p>
-    <!-- Card Content -->
+
     <h2 class="text-xl font-bold text-zinc-800 mb-2">{{ note.title }}</h2>
-    <hr />
-    <p class="text-base mt-5">{{ note.description }}</p>
+    <hr class="border-zinc-900" />
+    <p class="text-base mt-5 h-72 mb-10 p-3 break-words">
+      {{ note.description }}
+    </p>
   </div>
 </div>

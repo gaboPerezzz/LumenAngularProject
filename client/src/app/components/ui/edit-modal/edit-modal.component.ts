@@ -9,7 +9,18 @@ import { ModalService } from 'src/app/service/modalService/modal.service';
 })
 export class EditModalComponent {
   isModalOpen: boolean = false;
-  @Input() data: any;
+  showConfirm = false;
+  private _data: any;
+  @Input()
+  set data(value: any) {
+    this._data = value;
+    if (value) {
+      this.note = { ...value };
+    }
+  }
+  get data() {
+    return this._data;
+  }
   constructor(
     private notesService: NotesService,
     private modalService: ModalService
@@ -23,6 +34,23 @@ export class EditModalComponent {
 
   closeModal() {
     this.modalService.close();
+  }
+
+  openConfirmModal() {
+    this.showConfirm = true;
+  }
+
+  onDeleteConfirmed() {
+    this.notesService.deleteNote(this.note.id).subscribe({
+      next: () => {
+        console.log('Note deleted successfully');
+        this.modalService.close();
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error deleting note:', err);
+      },
+    });
   }
 
   onSubmit() {

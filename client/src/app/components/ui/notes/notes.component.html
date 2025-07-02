@@ -1,34 +1,18 @@
 <div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 md:p-10">
   <div
     *ngFor="let note of notes"
-    class="shadow-lg rounded-2xl p-5 pt-7 aspect-square w-full hover:scale-105 active:scale-100 transition-all relative cursor-pointer"
+    class="shadow-lg rounded-xl p-5 pt-7 aspect-square w-full hover:scale-105 active:scale-100 transition-all relative cursor-pointer"
     [style.backgroundColor]="note.color"
     (click)="openModal(note)"
   >
-    <p class="text-sm text-zinc-50">
+    <p class="text-sm text-black">
       {{ note.created_at | date : "shortDate" }}
     </p>
 
     <h2 class="text-xl font-bold text-zinc-800 mb-2">{{ note.title }}</h2>
-    <hr />
-    <p class="text-base mt-5 h-72 mb-10 p-3">{{ note.description }}</p>
-
-    <div class="text-whiterounded-3xl bottom-3 right-2 absolute">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-16 h-16 text-white hover:text-zinc-800 transition-all cursor-pointer"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M12 2C6.477 2 2 6.477 2 12s4.477 10 
-  10 10 10-4.477 10-10S17.523 2 12 2zM15.232 7.232a.75.75 0 
-  011.06 1.06l-1.078 1.078-1.06-1.06 1.078-1.078zM8.25 14.81v-1.685l4.97-4.97 
-  1.685 1.685-4.97 4.97H8.25z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </div>
+    <hr class="border-zinc-900" />
+    <p class="text-base mt-5 h-72 mb-10 p-3 break-words">
+      {{ note.description }}
+    </p>
   </div>
 </div>

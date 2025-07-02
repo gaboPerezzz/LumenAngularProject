@@ -1,0 +1,11 @@
+.bgPaper {
+  background-image: repeating-linear-gradient(
+    0deg,
+    #ededed,
+    #ededed 2px,
+    transparent 2px,
+    transparent
+  );
+  background-size: 32px 32px;
+  background-color: #ffffff;
+}

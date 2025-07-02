@@ -20,4 +20,8 @@ export class NotesService {
   editNote(id: number, note: any) {
     return this.http.put(`${this.notesUrl}/${id}`, note);
   }
+
+  deleteNote(id: number) {
+    return this.http.delete(`${this.notesUrl}/${id}`);
+  }
 }

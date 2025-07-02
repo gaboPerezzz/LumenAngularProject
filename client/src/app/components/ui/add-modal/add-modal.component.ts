@@ -23,7 +23,7 @@ export class AddModalComponent {
   closeModal() {
     this.modalService.close();
   }
-  colors: string[] = ['#D0AE4E', '#4487BF', '#70B76F', '#E63A32'];
+  colors: string[] = ['#ffb3ba', '	#ffdfba', '#ffffba', '#baffc9', '#bae1ff'];
 
   onSubmit() {
     console.log(this.note);

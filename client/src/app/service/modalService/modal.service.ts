@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Note } from 'src/app/interfaces/note'; // Adjust the import path as necessary
 interface ModalState {
-  type: 'edit' | 'add' | null;
+  type: 'edit' | 'add' | 'confirm' | null;
   data: Note | null;
 }
 
@@ -17,7 +17,7 @@ export class ModalService {
 
   modalState$ = this.modalState.asObservable();
 
-  open(type: 'edit' | 'add', data: Note | null = null) {
+  open(type: 'edit' | 'add' | 'confirm', data: Note | null = null) {
     this.modalState.next({ type, data });
   }
 

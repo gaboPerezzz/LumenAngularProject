@@ -14,6 +14,8 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { AddModalComponent } from './components/ui/add-modal/add-modal.component';
 import { EditModalComponent } from './components/ui/edit-modal/edit-modal.component';
+import { ConfirmModelComponent } from './components/ui/confirm-model/confirm-model.component';
+import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { EditModalComponent } from './components/ui/edit-modal/edit-modal.compon
     HomeComponent,
     AddModalComponent,
     EditModalComponent,
+    ConfirmModelComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
